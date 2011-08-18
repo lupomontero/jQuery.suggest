@@ -15,7 +15,7 @@ Default: "default.png"
 
 Default: "" (empty string)
 
-### _function_ search
+### _function_ search( searchstring, callback )
 
 
 ## Events
@@ -39,8 +39,8 @@ Default: "" (empty string)
     <script>
     jQuery(document).ready(function ($) {
       $('#username').suggest({
-        search: function (s) {
-          return [];
+        search: function (s, cb) {
+          cb([]);
         }
       });
     });
