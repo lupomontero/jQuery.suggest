@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <title>jQuery.suggest() Demo</title>
+  <link href="css/style.css" rel="stylesheet" />
+  <link href="http://fonts.googleapis.com/css?family=Quattrocento+Sans" rel="stylesheet" />
+  <link href="css/syntaxhighlighter/sh.min.css" rel="stylesheet" />
+</head>
+<body>
+
+  <h1>jQuery.suggest()</h1>
+  <a href="http://github.com/lupomontero/jQuery.suggest">
+    <img
+      style="position: absolute; top: 0; right: 0; border: 0;"
+      src="http://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"
+      alt="Fork me on GitHub" />
+  </a>
+
+  <form id="demo-form">
+  <p><input name="search" id="search"></p>
+  </form>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  <script src="js/jquery.suggest.js"></script>
+  <script src="js/json2.js"></script>
+  <script src="js/syntaxhighlighter/sh.min.js"></script>
+  <script>
+  jQuery(document).ready(function ($) {
+    var
+      form = $('#demo-form'),
+      field = $('#search'),
+      msgConainer = $('<div>'),
+      shClass = ' class="brush: js; gutter: false; fontsize: 100; first-line: 1;"'
+      showData = function () {
+        var msg = $('<div><p>Value: "' + field.val() + '"</p></div>');
+        msg.append('<div><h3>data</h3><pre' + shClass + '>' + JSON.stringify(field.data('suggest'), null, '  ') + '</pre></div>');
+        msgConainer.html(msg);
+        SyntaxHighlighter.autoloader('js js/syntaxhighlighter/shBrushJScript.js');
+        SyntaxHighlighter.all();
+        msgConainer.show();
+      };
+
+    field.suggest({
+      def_value: 'lupomontero',
+      def_image: 'default.png',
+      img_path: 'img/users',
+      search: function (s, cb) {
+        console.log('Searching for ' + s);
+        cb([
+          {
+            value: 'lupomontero',
+            title: 'Lupo Montero',
+            subtitle: 'London, UK',
+            img: 'lupomontero.jpg',
+            data: { foo: 'bar' }
+          },
+          {
+            value: 'bernardomontero',
+            title: 'Bernardo Montero',
+            subtitle: 'Durham, NC',
+            img: 'raul.jpg'
+          },
+          {
+            value: 'fernandotrueba',
+            title: 'Fernando Trueba',
+            subtitle: 'Durham, NC',
+            img: 'messi.jpg'
+          },
+          { value: 'someuser' },
+          { value: 'anotheruser' }
+        ]);
+      },
+      select: function (e, val) {
+        showData();
+      },
+      clear: function () {
+        msgConainer.hide();
+      }
+    });
+
+    form.after(msgConainer);
+  });
+  </script>
+</body>
+</html>
