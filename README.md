@@ -3,10 +3,6 @@ jQuery.suggest()
 
 ## Options
 
-### _string_ def\_value
-
-Default: "" (empty string)
-
 ### _string_ def\_image
 
 Default: "default.png"

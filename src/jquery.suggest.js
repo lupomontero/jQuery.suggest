@@ -10,7 +10,6 @@
 (function ($) {
 
 var defSettings = {
-  def_value: '',
   def_image: 'default.png',
   img_path: ''
 };
@@ -99,8 +98,9 @@ var createSuggestions = function (settings, node) {
     selHolder = ui.selHolder,
     selHolderCloseBtn = ui.selHolderCloseBtn,
     timeoutId,
-    searchterm = '',
-    xhr;
+    searchterm = ''
+    def_value = node.attr('value'),
+    def_title = node.attr('title');
 
   if (settings.select) {
     node.bind('select', settings.select);
@@ -152,6 +152,9 @@ var createSuggestions = function (settings, node) {
     selHolderWrapper.hide();
     suggestInput.show();
     suggestList.show();
+    if (!node.data('suggest')) {
+      suggestInput.keyup();
+    }
   });
 
   selHolderWrapper.append(selHolder);
@@ -159,6 +162,20 @@ var createSuggestions = function (settings, node) {
   wrapper.append(suggestInput);
   wrapper.append(selHolderWrapper);
   wrapper.append(suggestList);
+
+  // init default value
+  if (def_value) {
+    if (!def_title) {
+      def_title = def_value;
+    }
+    node.data('suggest', null);
+    suggestInput.val(def_title).hide();
+    selHolder.html(def_title);
+    selHolderWrapper.show();
+    selHolderWrapper.css('display', 'inline-block');
+    suggestList.hide();
+  }
+
   node.hide().before(wrapper);
 };
 

@@ -18,7 +18,7 @@
   </a>
 
   <form id="demo-form">
-  <p><input name="search" id="search"></p>
+  <p><input name="search" id="search" value="lupomontero" title="Lupo Montero" /></p>
   </form>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
@@ -42,7 +42,6 @@
       };
 
     field.suggest({
-      def_value: 'lupomontero',
       def_image: 'default.png',
       img_path: 'img/users',
       search: function (s, cb) {
