@@ -176,11 +176,15 @@ var createSuggestions = function (settings, node) {
     suggestList.hide();
   }
 
+  if (node.attr('class')) {
+    wrapper.addClass(node.attr('class'));
+  }
+
   node.hide().before(wrapper);
 };
 
 $.fn.suggest = function (options) {
-  var settings = $.extend(defSettings, options || {});
+  var settings = $.extend({}, defSettings, options || {});
 
   // Add behaviour to each selected input node
   $(this).each(function (i) {
