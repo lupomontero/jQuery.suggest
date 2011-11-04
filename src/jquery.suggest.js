@@ -53,8 +53,11 @@ var buildSuggestionsList = function (settings, ui, results) {
 
     if (result.img || settings.def_image) {
       img = $('<img>');
-      if (!result.img) result.img = settings.def_image;
-      img.attr('src', settings.img_path + '/' + result.img);
+      if (!result.img) { result.img = settings.def_image; }
+      if (settings.img_path && !/\/$/.test(settings.img_path)) {
+        settings.img_path = settings.img_path + '/';
+      }
+      img.attr('src', settings.img_path + result.img);
       a.append(img);
     }
 
@@ -98,7 +101,7 @@ var createSuggestions = function (settings, node) {
     selHolder = ui.selHolder,
     selHolderCloseBtn = ui.selHolderCloseBtn,
     timeoutId,
-    searchterm = ''
+    searchterm = '',
     def_value = node.attr('value'),
     def_title = node.attr('title');
 
@@ -192,4 +195,4 @@ $.fn.suggest = function (options) {
   });
 };
 
-})(jQuery)
+}(jQuery));
